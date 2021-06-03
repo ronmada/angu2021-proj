@@ -15,7 +15,7 @@ import { HomeComponent } from './components/home/home.component'
 import { HTTP_INTERCEPTORS } from '@angular/common/http'
 import { HttpHeadersInterceptor } from './interceptors/http-headers.interceptor'
 import { HttpErrorsInterceptor } from './interceptors/http-errors.interceptor'
-
+import { HttpClientModule } from '@angular/common/http'
 @NgModule({
   declarations: [AppComponent, SearchBarComponent, HomeComponent],
   imports: [
@@ -28,6 +28,7 @@ import { HttpErrorsInterceptor } from './interceptors/http-errors.interceptor'
     MatFormFieldModule,
     MatSelectModule,
     FormsModule,
+    HttpClientModule,
   ],
   providers: [
     {
