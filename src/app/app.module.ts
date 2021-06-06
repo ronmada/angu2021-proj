@@ -16,13 +16,15 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http'
 import { HttpHeadersInterceptor } from './interceptors/http-headers.interceptor'
 import { HttpErrorsInterceptor } from './interceptors/http-errors.interceptor'
 import { HttpClientModule } from '@angular/common/http'
-import { DetailsComponent } from './components/details/details.component'
+import { DetailsComponent } from './components/details/details.component';
+import { GameTabsComponent } from './components/game-tabs/game-tabs.component'
 @NgModule({
   declarations: [
     AppComponent,
     SearchBarComponent,
     HomeComponent,
     DetailsComponent,
+    GameTabsComponent,
   ],
   imports: [
     BrowserModule,
