@@ -1,21 +1,37 @@
 <div class="game-tabs">
   <mat-tab-group mat-align-tabs="start" backgroundColor="primary">
     <mat-tab label="about">
-      <p class="game-tabs-par">Platforms: <span>PC</span></p>
-      <p class="game-tabs-par">Publishers: <span>Konami</span></p>
-      <p class="game-tabs-par">
-        Website:
-        <a class="game-tabs-link" href="#" target="_blank">http://</a>
+      <p *ngIf="game.parent_platforms?.length" class="game-tabs-par">
+        Platforms:
+        <span *ngFor="let platform of game.parent_platforms; let last = last"
+          >{{ platform.platform.name }}<span *ngIf="!last">, </span>
+        </span>
       </p>
-      <div class="game-description">some description</div>
-      <p class="game-tabs-votes">
+      <p *ngIf="game.publishers?.length" class="game-tabs-par">
+        Publishers:
+        <span *ngFor="let publisher of game.publishers; let last = last"
+          >{{ publisher.name }}<span *ngIf="!last">, </span></span
+        >
+      </p>
+      <p *ngIf="game.website" class="game-tabs-par">
+        Website:
+        <a class="game-tabs-link" href="{{ game.website }}" target="_blank">{{
+          game.website
+        }}</a>
+      </p>
+      <div
+        *ngIf="game.description"
+        [innerHTML]="game.description"
+        class="game-description"
+      ></div>
+      <p *ngIf="game.ratings?.length" class="game-tabs-votes">
         <span>
           <mat-icon class="game-votes-up">thumb_up</mat-icon>
-          <span class="game-votes-count">55</span>
+          <span class="game-votes-count">{{ upvotes }}</span>
         </span>
         <span>
           <mat-icon class="game-votes-down">thumb_down</mat-icon>
-          <span class="game-votes-count">12</span>
+          <span class="game-votes-count">{{ downvotes }}</span>
         </span>
       </p>
     </mat-tab>
