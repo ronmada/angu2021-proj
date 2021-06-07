@@ -31,7 +31,7 @@ interface ParentPlatform {
 interface Publishers {
   name: string
 }
-interface Rating {
+export interface Rating {
   id: number
   count: number
   title: string

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute, Params } from '@angular/router'
-import { Subscription } from 'rxjs'
+import { Observable, Subscription } from 'rxjs'
 import { Game } from 'src/app/models'
 import { HttpService } from 'src/app/services/http.service'
 @Component({
@@ -9,11 +9,10 @@ import { HttpService } from 'src/app/services/http.service'
   styleUrls: ['./details.component.scss'],
 })
 export class DetailsComponent implements OnInit, OnDestroy {
-  public gameRating = 0
-  private gameId = ''
-  public game!: Game
+  // public game!: Game
   private routeSub: Subscription = Subscription.EMPTY
-  private gameSub: Subscription = Subscription.EMPTY
+  // private gameSub: Subscription = Subscription.EMPTY
+  public game$!: Observable<Game>
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -22,20 +21,25 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.routeSub = this.activatedRoute.params.subscribe((params: Params) => {
-      this.gameId = params['id']
-      this.getGameDetails(this.gameId)
+      this.game$ = this.httpService.getGameDetails(params['id'])
+      // setTimeout(() => {
+      //   this.gameRating = this.game.metacritic
+      // }, 1000)
+      // this.getGameDetails(this.gameId)
     })
   }
-  getGameDetails(id: string): void {
-    this.gameSub = this.httpService
-      .getGameDetails(id)
-      .subscribe((gameResp: Game) => {
-        this.game = gameResp
-      })
-    setTimeout(() => {
-      this.gameRating = this.game.metacritic
-    }, 1000)
-  }
+
+  // getGameDetails(id: string): void {
+  //   this.gameSub = this.httpService
+  //     .getGameDetails(id)
+  //     .subscribe((gameResp: Game) => {
+  //       this.game = gameResp
+  //       console.log(this.game)
+  //     })
+  //   setTimeout(() => {
+  //     this.gameRating = this.game.metacritic
+  //   }, 1000)
+  // }
 
   getColor(value: number): string {
     if (value > 75) return '#5ee432'
@@ -44,7 +48,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     else return '#ef4655'
   }
   ngOnDestroy(): void {
-    if (this.gameSub) this.gameSub.unsubscribe()
+    // if (this.gameSub) this.gameSub.unsubscribe()
     if (this.routeSub) this.routeSub.unsubscribe()
   }
 }

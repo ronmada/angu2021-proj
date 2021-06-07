@@ -1,6 +1,6 @@
-<div class="game-tabs">
+<div *ngIf="game$ | async as game" class="game-tabs">
   <mat-tab-group mat-align-tabs="start" backgroundColor="primary">
-    <mat-tab label="about">
+    <mat-tab label="About">
       <p *ngIf="game.parent_platforms?.length" class="game-tabs-par">
         Platforms:
         <span *ngFor="let platform of game.parent_platforms; let last = last"
@@ -27,7 +27,7 @@
       <p *ngIf="game.ratings?.length" class="game-tabs-votes">
         <span>
           <mat-icon class="game-votes-up">thumb_up</mat-icon>
-          <span class="game-votes-count">{{ upvotes }}</span>
+          <span class="game-votes-count">{{ getUpvotes(game.ratings) }}</span>
         </span>
         <span>
           <mat-icon class="game-votes-down">thumb_down</mat-icon>
@@ -35,16 +35,21 @@
         </span>
       </p>
     </mat-tab>
-    <mat-tab label="Screenshots">
+    <mat-tab label="Screenshots" *ngIf="game.screenshots?.length">
       <img
         class="game-screenshot"
-        src="https://media.rawg.io/media/resize/1920/-/screenshots/33b/33b9d84f26cee5ab59496c669a1551d5.jpg"
+        *ngFor="let screenshot of game.screenshots"
+        src="{{ screenshot.image }}"
         alt="screenshot"
       />
     </mat-tab>
-    <mat-tab label="Trailers">
-      <video class="game-trailer" controls>
-        <source src="google.com" type="video/mp4" />
+    <mat-tab label="Trailers" *ngIf="game.trailers?.length">
+      <video
+        class="game-trailer"
+        controls
+        *ngFor="let trailer of game.trailers"
+      >
+        <source src="{{ trailer.data?.max }}" type="video/mp4" />
         Your browser does not support the video tag
       </video>
     </mat-tab>

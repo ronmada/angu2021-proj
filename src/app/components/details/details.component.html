@@ -1,4 +1,4 @@
-<div *ngIf="game" class="details">
+<div *ngIf="game$ | async as game" class="details">
   <div class="game-banner">
     <img
       class="game-banner-img"
@@ -24,7 +24,7 @@
             [max]="100"
             [dialStartAngle]="180"
             [dialEndAngle]="0"
-            [value]="gameRating"
+            [value]="game.metacritic"
             [animated]="true"
             [color]="getColor"
             [animationDuration]="2"
@@ -37,7 +37,7 @@
           >
         </div>
       </div>
-      <app-game-tabs [game]="game"></app-game-tabs>
+      <app-game-tabs [game$]="game$"></app-game-tabs>
     </div>
   </div>
 </div>
