@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "gh-pages": "ng build --base-href ./ --prod && npx ngh --dir=www/"
+    "deploy": "ng deploy --base-href=/angu2021-proj/"
   },
   "private": true,
   "dependencies": {
